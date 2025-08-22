@@ -24,3 +24,11 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual(node.value, "hello world")
         self.assertIsNone(node.children)
         self.assertEqual(node.props_to_html(), 'class="text-sm"')
+
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_leaf_to_html_p2(self):
+        node = LeafNode("p", "Hello, world!", {"class": "text-sm"})
+        self.assertEqual(node.to_html(), '<p class="text-sm">Hello, world!</p>')
