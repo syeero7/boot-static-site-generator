@@ -6,12 +6,8 @@ from htmlnode import HTMLNode, LeafNode, ParentNode
 class TestHTMLNode(unittest.TestCase):
     def test_props_to_html(self):
         node = HTMLNode()
-        node.props = {
-            "href": "https://www.github.com",
-            "target": "_blank",
-        }
-
-        text = 'href="https://www.github.com" target="_blank"'
+        node.props = {"href": "https://www.github.com", "target": "_blank"}
+        text = ' href="https://www.github.com" target="_blank"'
         self.assertEqual(node.props_to_html(), text)
 
     def test_not_implementation_err(self):
@@ -23,7 +19,7 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual(node.tag, "p")
         self.assertEqual(node.value, "hello world")
         self.assertIsNone(node.children)
-        self.assertEqual(node.props_to_html(), 'class="text-sm"')
+        self.assertEqual(node.props_to_html(), ' class="text-sm"')
 
     def test_leaf_to_html_p(self):
         node = LeafNode("p", "Hello, world!")

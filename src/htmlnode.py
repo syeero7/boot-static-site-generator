@@ -13,8 +13,8 @@ class HTMLNode:
         if not self.props:
             return props_str
         for key in self.props:
-            props_str += f'{key}="{self.props[key]}" '
-        return props_str.strip()
+            props_str += f' {key}="{self.props[key]}"'
+        return props_str
 
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
@@ -29,10 +29,7 @@ class LeafNode(HTMLNode):
             raise ValueError(f"value is missing: {self.value}")
         if not self.tag:
             return self.value
-        attributes = self.props_to_html()
-        if len(attributes) > 0:
-            attributes = f" {attributes}"
-        return f"<{self.tag}{attributes}>{self.value}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
     def __repr__(self):
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
@@ -47,10 +44,7 @@ class ParentNode(HTMLNode):
             raise ValueError(f"value is missing: {self.value}")
         if not self.children:
             raise ValueError(f"children is missing: {self.children}")
-        attributes = self.props_to_html()
-        if len(attributes) > 0:
-            attributes = f" {attributes}"
         children_str = ""
         for node in self.children:
             children_str += node.to_html()
-        return f"<{self.tag}{attributes}>{children_str}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{children_str}</{self.tag}>"
